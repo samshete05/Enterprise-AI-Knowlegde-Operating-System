@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample Project Notes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 32px;
+      line-height: 1.6;
+      color: #1f2937;
+      background: #f8fafc;
+    }
+    .card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+    h1, h2 {
+      color: #0f172a;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Employee Leave Tracker</h1>
+    <p>
+      This HTML file contains a short project description, a JavaScript function,
+      a sample API response, and deployment notes. It is useful for testing
+      document retrieval and question answering.
+    </p>
+
+    <h2>Project Summary</h2>
+    <p>
+      The Employee Leave Tracker helps HR teams manage employee time-off requests.
+      Employees can apply for leave, managers can approve or reject requests,
+      and HR can view leave balances. The application uses role-based access with
+      three roles: <strong>employee</strong>, <strong>manager</strong>, and
+      <strong>hr_admin</strong>.
+    </p>
+
+    <h2>Tech Stack</h2>
+    <ul>
+      <li>Frontend: React</li>
+      <li>Backend: Node.js with Express</li>
+      <li>Database: MongoDB</li>
+      <li>Authentication: JWT</li>
+    </ul>
+
+    <h2>Business Rules</h2>
+    <ul>
+      <li>Each employee starts with 24 annual leave days per year.</li>
+      <li>A leave request longer than 10 days requires HR review.</li>
+      <li>Sick leave does not reduce annual leave balance if a medical certificate is attached.</li>
+      <li>Managers can only approve leave for employees in their own team.</li>
+      <li>Leave requests in status <code>approved</code> cannot be edited by employees.</li>
+    </ul>
+
+    <h2>JavaScript Function</h2>
+    <pre><code>function calculateRemainingLeave(totalLeave, usedLeave, pendingLeave) {
+  if (totalLeave &lt; 0 || usedLeave &lt; 0 || pendingLeave &lt; 0) {
+    throw new Error("Leave values cannot be negative");
+  }
+
+  const remaining = totalLeave - usedLeave - pendingLeave;
+  return remaining &lt; 0 ? 0 : remaining;
+}
+
+const result = calculateRemainingLeave(24, 8, 4);
+console.log("Remaining leave:", result);</code></pre>
+
+    <h2>Sample API Response</h2>
+    <pre><code>{
+  "employeeId": "EMP1024",
+  "employeeName": "Ananya Shah",
+  "department": "Engineering",
+  "manager": "Rohit Verma",
+  "leaveBalance": 12,
+  "pendingRequests": 2,
+  "lastRequestStatus": "approved"
+}</code></pre>
+
+    <h2>Deployment Notes</h2>
+    <p>
+      The application is deployed on Render for the backend and Netlify for the
+      frontend. MongoDB Atlas is used as the cloud database. Environment variables
+      required for the backend are <code>MONGODB_URI</code>, <code>JWT_SECRET</code>,
+      and <code>PORT</code>.
+    </p>
+
+    <h2>Known Issue</h2>
+    <p>
+      A previously reported bug showed that pending leave was not deducted from the
+      dashboard preview. The fix was added in version 1.4.2 by subtracting
+      <code>pendingLeave</code> inside the leave balance calculation function.
+    </p>
+
+    <h2>Suggested Questions</h2>
+    <ul>
+      <li>What is the purpose of the Employee Leave Tracker?</li>
+      <li>Which roles are supported in the application?</li>
+      <li>How many annual leave days does each employee start with?</li>
+      <li>When is HR review required for a leave request?</li>
+      <li>What happens if sick leave includes a medical certificate?</li>
+      <li>What does the <code>calculateRemainingLeave</code> function do?</li>
+      <li>What values are passed in the sample function call?</li>
+      <li>Who is the manager of employee EMP1024?</li>
+      <li>What is the leave balance in the sample API response?</li>
+      <li>Which environment variables are required for the backend?</li>
+      <li>What bug was fixed in version 1.4.2?</li>
+      <li>Where is the backend deployed?</li>
+    </ul>
+
+    <h2>One Irrelevant Question</h2>
+    <p>What is the annual revenue of the company?</p>
+  </div>
+</body>
+</html>
