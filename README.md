@@ -1,6 +1,6 @@
 # Enterprise AI Knowledge Operating System
 This project is a simple multilingual document question-answering app built with FastAPI. You upload a file, ask a question about it, and the system tries to answer using the content of that file first. If needed, it can also fall back to an external Hugging Face model.
-The goal is to make it easier to work with different kinds of documents, not just PDFs.
+The goal is to make it easier to work with different kinds of documents, not just PDFs. Also if the user upload the file in differnt language and ask question in differnt language then also it will work and give answer in that user target language.
 
 ## What This Project Can Do
 
@@ -114,7 +114,6 @@ If you want even faster results, the next best improvement would be optimizing `
 If you want to extract text from screenshots or image files, Python packages alone are not enough. You also need Tesseract OCR installed on your system.
 
 Without Tesseract:
-
 - the app can still start
 - PDFs, text files, HTML, and code files still work
 - image uploads will show a clear error message instead of crashing

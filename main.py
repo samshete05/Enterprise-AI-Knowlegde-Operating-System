@@ -19,8 +19,11 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 @app.get("/", response_class=HTMLResponse)
 async def home() -> str:
+    # it will handle the pipeline 
     active_pipeline = get_active_pipeline()
     active_document = active_pipeline["document_name"] if active_pipeline else ""
+
+    # here it will render the home page with active doc and call to ui file 
     return render_home_page(active_document=active_document)
 
 
@@ -31,9 +34,11 @@ async def health() -> dict[str, str]:
 
 @app.post("/upload", response_class=HTMLResponse)
 async def upload_document(file: UploadFile = File(...)) -> str:
+    # if file not found error shown 
     if not file.filename:
         return render_home_page("Please upload a supported file.")
-
+     
+    # check for the suffix that is the file extension
     suffix = Path(file.filename).suffix.lower()
     if suffix not in SUPPORTED_EXTENSIONS:
         allowed = ", ".join(sorted(SUPPORTED_EXTENSIONS))
@@ -42,6 +47,7 @@ async def upload_document(file: UploadFile = File(...)) -> str:
     safe_name = Path(file.filename).name
     saved_path = UPLOAD_DIR / safe_name
 
+# until this we will save our uploaded file in the uploads folder
     with saved_path.open("wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 

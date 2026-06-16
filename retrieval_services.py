@@ -306,6 +306,7 @@ def extract_documents(file_path: Path) -> list[Document]:
 
 
 def build_chunks(file_path: Path) -> list[Document]:
+    # in building the chunks according to doc extension the chunks is done
     documents = extract_documents(file_path)
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=CHUNK_SIZE,
