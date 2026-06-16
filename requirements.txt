@@ -12,8 +12,12 @@ langchain-huggingface
 langchain-text-splitters
 chromadb
 pypdf
+pdfplumber
+PyMuPDF
 transformers
 python-docx
 beautifulsoup4
 Pillow
 pytesseract
+easyocr
+paddleocr

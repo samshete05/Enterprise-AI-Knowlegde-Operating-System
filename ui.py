@@ -142,6 +142,13 @@ def render_results_page(active_document: str, payload: dict[str, Any]) -> str:
     sources = payload.get("sources", [])
     workflow_steps = payload.get("workflow_steps", [])
     confidence = payload.get("confidence", {})
+    query_language = payload.get("query_language", "unknown")
+    target_language = payload.get("target_language", "unknown")
+    document_language = payload.get("document_language", "unknown")
+    normalized_query = payload.get("normalized_query", payload.get("query", ""))
+    fallback_reason = payload.get("fallback_reason", "")
+    verification_reason = payload.get("verification_reason", "")
+    verification_metrics = payload.get("verification_metrics", {})
     fallback_note = ""
 
     if payload.get("used_external_fallback"):
@@ -179,6 +186,12 @@ def render_results_page(active_document: str, payload: dict[str, Any]) -> str:
         </div>
         <h2>Question</h2>
         <p>{escape(str(payload.get("query", "")))}</p>
+        <div class="message">
+            <strong>Retrieval Query:</strong> {escape(str(normalized_query))}<br />
+            <strong>Document Language:</strong> {escape(str(document_language))}<br />
+            <strong>Question Language:</strong> {escape(str(query_language))}<br />
+            <strong>Answer Language:</strong> {escape(str(target_language))}
+        </div>
         <h2>Answer</h2>
         <div class="answer">{escape(str(payload.get("answer", "")))}</div>
         <h2>Confidence</h2>
@@ -186,6 +199,15 @@ def render_results_page(active_document: str, payload: dict[str, Any]) -> str:
             <strong>{escape(str(confidence.get("label", "unknown")).upper())}</strong>
             ({escape(str(confidence.get("score", "0")))})<br />
             {escape(str(confidence.get("reason", "")))}
+        </div>
+        <div class="message">
+            <strong>Fallback Check:</strong> {escape(str(fallback_reason))}
+        </div>
+        <div class="message">
+            <strong>Verification:</strong> {escape(str(verification_reason))}<br />
+            <strong>Answer/Evidence Similarity:</strong> {escape(str(verification_metrics.get("answer_evidence_similarity", "0")))}<br />
+            <strong>Query/Answer Similarity:</strong> {escape(str(verification_metrics.get("query_answer_similarity", "0")))}<br />
+            <strong>Grounding Strength:</strong> {escape(str(verification_metrics.get("grounding_strength", "0")))}
         </div>
         {fallback_note}
         <h2>Workflow</h2>
